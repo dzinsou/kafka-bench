@@ -21,6 +21,7 @@ Consume messages from a list of topics.
 **Example**
 
 java -cp kafka-bench-0.1.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
+fr.dzinsou.kafkabench.MyKafkaConsumer \\<br/>
 broker1:6667,broker2:6667,broker2:6667 \\<br/>
 SASL_PLAINTEXT \\<br/>
 kafka \\<br/>
@@ -44,6 +45,7 @@ Produce message on a topic.
 **Example**
 
 java -cp kafka-bench-0.1.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
+fr.dzinsou.kafkabench.MyKafkaProducer \\<br/>
 broker1:6667,broker2:6667,broker2:6667 \\<br/>
 SASL_PLAINTEXT \\<br/>
 kafka \\<br/>
