@@ -36,11 +36,12 @@ Produce message on a topic.
 
 **Arguments**
 
-* bootstrap.servers (comma separated)
-* security.protocol (PLAINTEXT, SASL_PLAINTEXT, SASL_SSL)
-* sasl.kerberos.service.name (check your JAAS config)
-* topic name
-* iterations count (number of message to send)
+* -producer_properties (kafka producer properties)
+* -topic (topic name)
+* -batch_message_size (message size in bytes)
+* -batch_message_count (number of messages per iteration)
+* -batch_iteration_count (number of iterations)
+* -batch_iteration_pause (pause between iterations in millis)
 
 **Example**
 
