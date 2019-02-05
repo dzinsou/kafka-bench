@@ -46,8 +46,9 @@ Produce message on a topic.
 
 java -cp kafka-bench-0.1.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
 fr.dzinsou.kafkabench.MyKafkaProducer \\<br/>
-broker1:6667,broker2:6667,broker2:6667 \\<br/>
-SASL_PLAINTEXT \\<br/>
-kafka \\<br/>
-topic \\<br/>
-10
+-producer_properties producer.properties \\<br/>
+-topic topic1 \\<br/>
+-batch_message_size 1024 \\<br/>
+-batch_message_count 1000000 \\<br/>
+-batch_iteration_count 1 \\<br/>
+-batch_iteration_pause 10000
