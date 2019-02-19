@@ -20,7 +20,7 @@ Consume messages from a list of topics.
 
 **Example**
 
-java -cp kafka-bench-0.1.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
+java -cp kafka-bench-0.2.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
 fr.dzinsou.kafkabench.MyKafkaConsumer \\<br/>
 broker1:6667,broker2:6667,broker2:6667 \\<br/>
 SASL_PLAINTEXT \\<br/>
@@ -45,7 +45,7 @@ Produce message on a topic.
 
 **Example**
 
-java -cp kafka-bench-0.1.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
+java -cp kafka-bench-0.2.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
 fr.dzinsou.kafkabench.MyKafkaProducer \\<br/>
 -producer_properties producer.properties \\<br/>
 -topic topic1 \\<br/>
@@ -53,3 +53,19 @@ fr.dzinsou.kafkabench.MyKafkaProducer \\<br/>
 -batch_message_count 1000000 \\<br/>
 -batch_iteration_count 1 \\<br/>
 -batch_iteration_pause 10000
+
+### Generate script to create topic(s)
+
+Generate Kafka script to create topic(s) based on an existing configuration.
+
+**Arguments**
+
+* zkUrl (ZooKeeper URL *host:port*)
+* createCommandPath (Path of kafka-topics.sh script. For HDP clusters */usr/hdp/current/kafka-broker/bin/kafka-topics.sh*)
+
+**Example**
+
+java -cp kafka-bench-0.2.0.jar -Djava.security.auth.login.config=kafka_client_jaas.conf \\<br/>
+fr.dzinsou.kafkabench.MyKafkaShowCreateTopic \\<br/>
+localhost:2181 \\<br/>
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh
