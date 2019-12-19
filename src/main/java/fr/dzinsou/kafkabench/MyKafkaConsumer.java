@@ -1,6 +1,8 @@
 package fr.dzinsou.kafkabench;
 
+import org.apache.commons.cli.*;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,9 @@ public class MyKafkaConsumer implements Closeable {
             ConsumerRecords<String, String> records = kafkaConsumer.poll(0);
             if (records.count() > 0) {
                 LOGGER.info(String.format("Received [%d] records", records.count()));
+                for (ConsumerRecord<String, String> record : records) {
+                    LOGGER.info("Offset [{}] --- Key [{}] --- Value --- [{}]", record.offset(), record.key(), record.value());
+                }
             }
         }
     }
@@ -67,14 +72,26 @@ public class MyKafkaConsumer implements Closeable {
         }
     }
 
-    public static void main(String[] args) {
-        String kafkaBootstrapServers = args[0];
-        String securityProtocol = args[1];
-        String kafkaKrbServiceName = args[2];
-        String consumerGroupId = args[3];
-        String autoOffsetResetConfig = args[4];
-        String enableAutoCommitConfig = args[5];
-        List<String> topics = Arrays.asList(args[6].split(","));
+    public static void main(String[] args) throws ParseException {
+        Options options = new Options();
+        options.addRequiredOption("bootstrap_servers", "bootstrap_servers",true, "bootstrap servers");
+        options.addRequiredOption("security_protocol", "security_protocol", true, "security protocol");
+        options.addRequiredOption("krb_service_name", "krb_service_name", true, "kafka kerberos service name");
+        options.addRequiredOption("group_id", "group_id", true, "consumer group ID");
+        options.addRequiredOption("auto_offset_reset", "auto_offset_reset", true, "consumer auto offset reset");
+        options.addRequiredOption("enable_auto_commit", "enable_auto_commit", true, "enable auto commit");
+        options.addRequiredOption("topics", "topics", true, "topics");
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, args);
+
+        String kafkaBootstrapServers = cmd.getOptionValue("bootstrap_servers");
+        String securityProtocol = cmd.getOptionValue("security_protocol");
+        String kafkaKrbServiceName = cmd.getOptionValue("krb_service_name");
+        String consumerGroupId = cmd.getOptionValue("group_id");
+        String autoOffsetResetConfig = cmd.getOptionValue("auto_offset_reset");
+        String enableAutoCommitConfig = cmd.getOptionValue("enable_auto_commit");
+        List<String> topics = Arrays.asList(cmd.getOptionValue("topics").split(","));
 
         try (MyKafkaConsumer myKafkaConsumer = new MyKafkaConsumer(kafkaBootstrapServers, securityProtocol, kafkaKrbServiceName, consumerGroupId, autoOffsetResetConfig, enableAutoCommitConfig, topics)) {
             myKafkaConsumer.run();
