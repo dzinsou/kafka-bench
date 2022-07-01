@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <kafka.version>0.10.0.2.5.3.149-1</kafka.version>
+        <kafka.version>0.10.2.2</kafka.version>
         <slf4j.version>1.7.13</slf4j.version>
         <scala.version>2.10.6</scala.version>
         <commons-lang.version>3.8.1</commons-lang.version>
